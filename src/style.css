@@ -829,8 +829,11 @@ textarea::placeholder{
   .enviar-email:hover{
     border: 2px solid var(--cinza-claro2);
   }
-  
- 
+
+  .contact-text{
+    margin-bottom: 35px;
+   }
+
 
 }
 
