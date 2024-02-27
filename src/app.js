@@ -222,3 +222,35 @@ document.addEventListener('scroll', function () {
     }
   }
 });
+
+
+
+const themeBtn = document.querySelector(".theme-btn");
+        
+        let isDarkTheme = true;
+
+        function updateTheme() {
+            const body = document.body;
+            body.style.backgroundColor = isDarkTheme ? "#121212" : "#fff";
+            body.style.color = isDarkTheme ? "#fff" : "#000";
+            body.classList.remove("light-theme", "dark-theme");
+            body.classList.add(isDarkTheme ? "dark-theme" : "light-theme");
+        }
+    
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            updateTheme();
+
+            const icon = themeBtn.querySelector("i");
+            icon.classList.toggle("fa-moon");
+            icon.classList.toggle("fa-sun");
+        }
+
+        updateTheme();
+
+        setInterval(function() {
+          document.getElementById("tooltip").style.display = "block";
+          setTimeout(function() {
+              document.getElementById("tooltip").style.display = "none";
+          }, 3800); 
+      }, 10000);
