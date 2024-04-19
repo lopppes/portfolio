@@ -14,6 +14,9 @@
   --white_a5: hsla(0, 0%, 100%, 0.05);
   --header-footer:#222228;
 
+  --linear-gradient-1: linear-gradient(to top left, hsla(0, 72%, 51%, 0.4) 0%, hsla(262, 83%, 58%, 0.4));
+  --linear-gradient-2: linear-gradient(to right, hsla(262, 83%, 58%, 1), hsla(0, 72%, 51%, 1));
+
   /**
    * tipografia
    */
@@ -59,7 +62,10 @@
   --cubic-ease-out: 700ms cubic-bezier(0.17, 0.67, 0, 1.01);
 
 }
-/* fade in */
+
+ /**
+   * fade in
+   */
 
 .fade-in {
   opacity: 0;
@@ -69,6 +75,16 @@
 .fade-in.active {
   opacity: 1;
 }
+
+ /**
+   * grid-list
+   */
+
+.grid-list {
+  display: grid;
+  gap: 30px;
+}
+
 
 
 
@@ -529,8 +545,9 @@ a.navbar-link:hover{
 }
 
 .hero-banner > img {
-  border-radius: 4vw 4vw 8vw 2vw;
-  
+  border-radius: 50%;
+  background-color: rgb(122,122,122);
+  box-shadow: inset 0px -10px 30px rgb(0, 0, 0);
 }
 
 .seguireContato{
@@ -918,6 +935,86 @@ textarea::placeholder{
   color: var(--white);
 }
 
+
+/*-----------------------------------*\
+  #PROJETOS
+\*-----------------------------------*/
+
+.project .section-text { margin-block: 5px 35px; }
+
+
+.project-card {
+  position: relative;
+  border-radius: 25px;
+  overflow: hidden;
+  color: var(--white);
+  transition: var(--cubic-ease-out);
+  font-weight: bold;
+  
+}
+
+.project-card:hover{
+  transform: scale(0.95); 
+}
+
+.project-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--black);
+  opacity: 0.5;
+  transition: var(--transition-2);
+  border-radius: 25px;
+}
+
+
+.project-card:is(:hover, :focus-within)::after { 
+  opacity: 0.7;
+ 
+}
+
+.project-card .card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  z-index: 1;
+  transition: var(--transition-2);
+ 
+}
+
+
+.project-card .card-title {
+  color: var(--white);
+  margin-block: 12px 15px;
+}
+
+
+.project-button{
+  display: flex;
+  align-items: center;
+  max-width: max-content;
+  min-width: max-content;
+  padding: 20px 45px;
+  border: 2px solid var(--white);
+  gap: 4px;
+  border-radius: 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: border 300ms ease;
+}
+
+.project-button:hover{
+  border: 2px solid var(--cinza-claro2);
+}
   
 /*-----------------------------------*\
   portfolio
@@ -976,6 +1073,16 @@ textarea::placeholder{
     width: 100%;
     margin-inline: auto;
   }
+
+  /**
+   * grid list
+   */
+
+  .grid-list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 25px;
+  }
+
 
   .slider { --slider-items: 2; }
 
@@ -1134,6 +1241,12 @@ textarea::placeholder{
 
   }
 
+    /**
+   * grid list
+   */
+ 
+  .grid-list { grid-template-columns: repeat(3, 1fr); }
+
 
 
   /**
@@ -1168,6 +1281,11 @@ textarea::placeholder{
    
    
   }
+   /**
+   * PROJECT
+   */
+
+   .project-card .card-subtitle { --fs-6: 1.5rem; }
 
   /**
    * blog
@@ -1216,7 +1334,7 @@ textarea::placeholder{
      left: 50%;
      transform: translateX(-50%);
      padding-inline: 16px;
-     border-radius: var(--radius-8);
+     
      
    }
  
@@ -1294,6 +1412,14 @@ textarea::placeholder{
   
    
   }
+   /**
+   * PROJECT
+   */
+
+   .project-card .card-content { padding: 30px; }
+
+   .project-card .card-subtitle { --fs-6: 1.6rem; }
+ 
   
   
 
@@ -1371,8 +1497,28 @@ textarea::placeholder{
     -moz-box-shadow: -1px 1px 50px 8px rgba(0, 0, 0, 0.694);
   }
 
+  .logo-pt{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  
+  }
+  .language-btn {
+    color: #ffffff;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+.language-btn span{
+  display: flex;
+  font-weight: bold;
+}
+.language-btn:hover {
+  color: var(--roman-silver);
 
-
+}
   .theme-btn {
     position: fixed;
     bottom: 20px;
@@ -1413,7 +1559,7 @@ body.light-theme .theme-btn {
   animation:  fadeInOut 2s ease-in-out infinite;
   opacity: 0;
   transition: opacity 0.5s ease;
-
+  z-index: 1;
   
 }
 @keyframes fadeInOut {

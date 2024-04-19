@@ -20,8 +20,10 @@ const addEventOnElements = function (elements, eventType, callback) {
 const preloader = document.querySelector("[data-preloader]");
 
 window.addEventListener("DOMContentLoaded", function () {
-  preloader.classList.add("loaded");
-  document.body.classList.add("loaded");
+  setTimeout(() => {
+    preloader.classList.add("loaded");
+    document.body.classList.add("loaded");
+  }, 1000); 
 });
 
 const [navTogglers, navLinks, navbar, overlay] = [
@@ -223,34 +225,78 @@ document.addEventListener('scroll', function () {
   }
 });
 
-
+  // tema
 
 const themeBtn = document.querySelector(".theme-btn");
-        
-        let isDarkTheme = true;
+let isDarkTheme = true; 
 
-        function updateTheme() {
-            const body = document.body;
-            body.style.backgroundColor = isDarkTheme ? "#121212" : "#fff";
-            body.style.color = isDarkTheme ? "#fff" : "#000";
-            body.classList.remove("light-theme", "dark-theme");
-            body.classList.add(isDarkTheme ? "dark-theme" : "light-theme");
-        }
+const savedTheme = localStorage.getItem("isDarkTheme");
+if (savedTheme !== null) {
+    isDarkTheme = JSON.parse(savedTheme);
+}
+
+
+function updateTheme() {
+    const body = document.body;
+    body.style.backgroundColor = isDarkTheme ? "#121212" : "#fff";
+    body.style.color = isDarkTheme ? "#fff" : "#000";
+    body.classList.remove("light-theme", "dark-theme");
+    body.classList.add(isDarkTheme ? "dark-theme" : "light-theme");
     
-        function toggleTheme() {
-            isDarkTheme = !isDarkTheme;
-            updateTheme();
 
-            const icon = themeBtn.querySelector("i");
-            icon.classList.toggle("fa-moon");
-            icon.classList.toggle("fa-sun");
-        }
+    const icon = themeBtn.querySelector("i");
+    if (isDarkTheme) {
+        icon.classList.add("fa-moon");
+        icon.classList.remove("fa-sun");
+    } else {
+        icon.classList.add("fa-sun");
+        icon.classList.remove("fa-moon");
+    }
+}
 
-        updateTheme();
 
-        setInterval(function() {
-          document.getElementById("tooltip").style.display = "block";
-          setTimeout(function() {
-              document.getElementById("tooltip").style.display = "none";
-          }, 3800); 
-      }, 10000);
+function toggleTheme() {
+    isDarkTheme = !isDarkTheme;
+    updateTheme();
+    
+  
+    localStorage.setItem("isDarkTheme", JSON.stringify(isDarkTheme));
+}
+
+
+updateTheme();
+
+
+setInterval(function() {
+    document.getElementById("tooltip").style.display = "block";
+    setTimeout(function() {
+        document.getElementById("tooltip").style.display = "none";
+    }, 3800);
+}, 10000);
+
+ // salvar scroll 
+
+ function saveScrollPosition() {
+  const scrollPosition = window.scrollY;
+  localStorage.setItem('scrollPosition', scrollPosition);
+}
+
+function restoreScrollPosition() {
+  const scrollPosition = localStorage.getItem('scrollPosition');
+  if (scrollPosition !== null) {
+      window.scrollTo({
+          top: scrollPosition,
+          behavior: 'smooth' // Adiciona a transição suave
+      });
+      localStorage.removeItem('scrollPosition');
+  }
+}
+
+// Adiciona um event listener para salvar a posição do scroll ao clicar no link
+document.addEventListener('DOMContentLoaded', function () {
+  const languageBtn = document.querySelector('.language-btn');
+  if (languageBtn) {
+      languageBtn.addEventListener('click', saveScrollPosition);
+  }
+  restoreScrollPosition();
+});
